@@ -6,7 +6,7 @@
 /*   By: eflaquet <eflaquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:48:01 by eflaquet          #+#    #+#             */
-/*   Updated: 2022/05/15 21:16:15 by eflaquet         ###   ########.fr       */
+/*   Updated: 2022/05/15 23:35:10 by eflaquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include <stdio.h>
 
 char	*ft_u_itoa(unsigned int n);
+
+
 
 int ft_putchar(char c)
 {
@@ -47,18 +49,13 @@ int ft_putnbr_u(unsigned int d)
 	free(s);
 	return(i);
 }
-int	ft_intlen_base(int nb)
+int	ft_intlen_base(unsigned int nb)
 {
 	int	result;
 
 	result = 0;
 	if (nb == 0)
 		return (1);
-	if (nb < 0)
-	{
-		result++;
-		nb *= -1;
-	}
 	while (nb != 0)
 	{
 		result++;
@@ -66,11 +63,11 @@ int	ft_intlen_base(int nb)
 	}
 	return (result);
 }
-int	ft_puthex(int o, int u)
+int	ft_puthex(unsigned int o, int u)
 {
-	int i = ft_intlen_base(o);
-	int tmp;
-	char *f = ft_calloc(sizeof(char) , (i));
+	unsigned int i = ft_intlen_base(o);
+	unsigned int tmp;
+	char *f = ft_calloc(sizeof(char) , (i + 1));
 	while(o != 0)
 	{
 		tmp = o % 16;
@@ -89,6 +86,31 @@ int	ft_puthex(int o, int u)
 	i = ft_putstr(f);
 	return (i);
 }
+int my_put_padress (void const *p)
+{
+   unsigned long adr;
+   char const *base;
+   char res[9];
+   int i;
+int x = 0;
+   adr = (unsigned long) p;
+   base = "0123456789abcdef";
+   i = 8;
+   while ((adr / 16) > 0 || i >= 8)
+   {
+      res[i] = base[(adr % 16)];
+      adr /= 16;
+      i--;
+   }
+   res[i] = base[(adr % 16)];
+   	x += ft_putstr ("0x");
+   while (i < 9)
+   {
+      x += ft_putchar (res[i]);
+      i++;
+   }
+   return (x);
+}
 int	check_format(char c, va_list l)
 {
 	int i = 0;
@@ -97,7 +119,7 @@ int	check_format(char c, va_list l)
 	else if(c == 's')
 		i += ft_putstr(va_arg(l, char *));
 	else if(c == 'p')
-		i += 1;
+		i += my_put_padress(va_arg(l, void *));
 	else if(c == 'd')
 		i += ft_putnbr_len(va_arg(l, int));
 	else if(c == 'i')
@@ -131,24 +153,4 @@ int	ft_printf(const char *f, ...)
 	}
 	va_end(list);
 	return (rest);
-}
-#include <stdint.h>
-#include <inttypes.h>
-
-int main(){
-	char c = 'c';
-	int d = 156;
-	int u = -255;
-	int i = -15;
-	int x = 4292469704;
-	int variable=5;
-  	int *ptr=&variable;
-	char * s = "bien jouer";
-	int y = ft_printf("\ncoucou %c moi %s est 156 = %d est i = %i, u = %u, x = %x est attention %%", c, s, d, i,u, x);
-	int p = printf("\ncoucou %c moi %s est 156 = %d est i = %i, u = %u, x = %x est attention %%", c, s, d, i,u, x);
-	printf("\nptr   = 0x%p = (déc)%p\n", ptr, ptr);
-  	printf("\nptr+1 = 0x%p = (déc)%p\n", ptr+1,  (ptr+1));
-
-	 printf("\n%p\nu = %u\ni = %i\n x = %x ", "u", u, i, x);
-	 printf("\n y = %d    printf = %d", y, p);
 }
