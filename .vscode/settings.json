@@ -1,6 +1,7 @@
 {
 	"files.associations": {
 		"inttypes.h": "c",
-		"libftprintf.h": "c"
+		"libftprintf.h": "c",
+		"ft_printf.h": "c"
 	}
 }

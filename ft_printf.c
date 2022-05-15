@@ -6,12 +6,11 @@
 /*   By: eflaquet <eflaquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:48:01 by eflaquet          #+#    #+#             */
-/*   Updated: 2022/05/15 23:35:10 by eflaquet         ###   ########.fr       */
+/*   Updated: 2022/05/16 00:52:07 by eflaquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
-#include <stdio.h>
+#include "ft_printf.h"
 
 char	*ft_u_itoa(unsigned int n);
 
@@ -24,8 +23,18 @@ int ft_putchar(char c)
 }
 int ft_putstr(char *s)
 {
-	ft_putstr_fd(s, 1);
-	return(ft_strlen(s));
+	int i;
+	if(!s)
+	{
+		ft_putstr_fd("(null)", 1);
+		i = 6;
+	}
+	else
+	{
+		ft_putstr_fd(s, 1);
+		i  =  ft_strlen(s);
+	}
+	return(i);
 }
 int ft_putnbr_len(int d)
 {
@@ -84,6 +93,7 @@ int	ft_puthex(unsigned int o, int u)
 		o /= 16;
 	}
 	i = ft_putstr(f);
+	free(f);
 	return (i);
 }
 int my_put_padress (void const *p)
@@ -145,8 +155,11 @@ int	ft_printf(const char *f, ...)
 	{
 		if(f[i] == '%')
 		{
-			if(f[i + 1] != 0 && (rest += check_format(f[i+1], list)))
+			if(f[i + 1] != 0)
+			{
+				rest += check_format(f[i+1], list);
 				i++;
+			}
 		}else
 			rest += ft_putchar(f[i]);
 		i++;

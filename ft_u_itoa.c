@@ -6,11 +6,11 @@
 /*   By: eflaquet <eflaquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 17:09:45 by eflaquet          #+#    #+#             */
-/*   Updated: 2022/05/15 23:32:07 by eflaquet         ###   ########.fr       */
+/*   Updated: 2022/05/16 00:21:50 by eflaquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
 int	ft_intlen_u(unsigned int nb)
 {
