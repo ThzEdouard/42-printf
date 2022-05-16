@@ -6,12 +6,12 @@
 /*   By: eflaquet <eflaquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:48:01 by eflaquet          #+#    #+#             */
-/*   Updated: 2022/05/16 00:52:07 by eflaquet         ###   ########.fr       */
+/*   Updated: 2022/05/16 15:45:14 by eflaquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
+#include <stdio.h>
 char	*ft_u_itoa(unsigned int n);
 
 
@@ -106,6 +106,7 @@ int x = 0;
    adr = (unsigned long) p;
    base = "0123456789abcdef";
    i = 8;
+   printf("\ntest p = %p\n", p);
    while ((adr / 16) > 0 || i >= 8)
    {
       res[i] = base[(adr % 16)];
@@ -121,6 +122,34 @@ int x = 0;
    }
    return (x);
 }
+int	ft_put_padress (void const *p, char const *base)
+{
+	int x = 0;
+	unsigned long adr;
+
+	if(!p)
+		return(ft_putstr("(nil)"));
+	adr = (unsigned long) p;
+	int i = ft_intlen_base(adr);
+printf("i = %d", i );
+	char *rest = ft_calloc(sizeof(char), (i + 1));
+	int y = i;
+	while ((adr / 16) > 0)
+   {
+      rest[i] = base[(adr % 16)];
+      adr /= 16;
+      i--;
+   }
+   rest[i] = base[(adr % 16)];
+   	x += ft_putstr("0x");
+   while (i <= y)
+   {
+      x += ft_putchar (rest[i]);
+      i++;
+   }
+   free(rest);
+   return (x);
+}
 int	check_format(char c, va_list l)
 {
 	int i = 0;
@@ -129,7 +158,7 @@ int	check_format(char c, va_list l)
 	else if(c == 's')
 		i += ft_putstr(va_arg(l, char *));
 	else if(c == 'p')
-		i += my_put_padress(va_arg(l, void *));
+		i += ft_put_padress(va_arg(l, void *),"0123456789abcdef");
 	else if(c == 'd')
 		i += ft_putnbr_len(va_arg(l, int));
 	else if(c == 'i')

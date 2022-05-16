@@ -2,6 +2,8 @@
 	"files.associations": {
 		"inttypes.h": "c",
 		"libftprintf.h": "c",
-		"ft_printf.h": "c"
+		"ft_printf.h": "c",
+		"stdio.h": "c",
+		"limits.h": "c"
 	}
 }
