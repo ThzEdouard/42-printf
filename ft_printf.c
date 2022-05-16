@@ -6,7 +6,7 @@
 /*   By: eflaquet <eflaquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:48:01 by eflaquet          #+#    #+#             */
-/*   Updated: 2022/05/16 15:45:14 by eflaquet         ###   ########.fr       */
+/*   Updated: 2022/05/16 17:45:56 by eflaquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,55 +72,20 @@ int	ft_intlen_base(unsigned int nb)
 	}
 	return (result);
 }
-int	ft_puthex(unsigned int o, int u)
+int	ft_puthex(unsigned int o, char *base)
 {
-	unsigned int i = ft_intlen_base(o);
+	unsigned int i = 0;
 	unsigned int tmp;
-	char *f = ft_calloc(sizeof(char) , (i + 1));
-	while(o != 0)
-	{
-		tmp = o % 16;
-		if(tmp < 10)
-			tmp = tmp + 48;
+	tmp = o;
+		if(tmp < 16)
+			i += ft_putchar(base[tmp]);
 		else
 		{
-			if(u == 0)
-				tmp = (tmp + 55) + 32;
-			else
-				tmp = (tmp + 55);
+			i += ft_puthex(tmp / 16, base);
+			i += ft_puthex(tmp % 16, base);
 		}
-		f[--i] = tmp;
-		o /= 16;
-	}
-	i = ft_putstr(f);
-	free(f);
+
 	return (i);
-}
-int my_put_padress (void const *p)
-{
-   unsigned long adr;
-   char const *base;
-   char res[9];
-   int i;
-int x = 0;
-   adr = (unsigned long) p;
-   base = "0123456789abcdef";
-   i = 8;
-   printf("\ntest p = %p\n", p);
-   while ((adr / 16) > 0 || i >= 8)
-   {
-      res[i] = base[(adr % 16)];
-      adr /= 16;
-      i--;
-   }
-   res[i] = base[(adr % 16)];
-   	x += ft_putstr ("0x");
-   while (i < 9)
-   {
-      x += ft_putchar (res[i]);
-      i++;
-   }
-   return (x);
 }
 int	ft_put_padress (void const *p, char const *base)
 {
@@ -166,9 +131,9 @@ int	check_format(char c, va_list l)
 	else if(c == 'u')
 		i += ft_putnbr_u((unsigned int)va_arg(l, unsigned int));
 	else if(c == 'x')
-		i += ft_puthex(va_arg(l, int), 0);
+		i += ft_puthex(va_arg(l, int), "0123456789abcdef");
 	else if(c == 'X')
-		i += ft_puthex(va_arg(l, int), 1);
+		i += ft_puthex(va_arg(l, int), "0123456789ABCDEF");
 	else if(c == '%')
 		i += ft_putchar('%');
 	return (i);
