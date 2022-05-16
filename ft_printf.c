@@ -6,7 +6,7 @@
 /*   By: eflaquet <eflaquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:48:01 by eflaquet          #+#    #+#             */
-/*   Updated: 2022/05/16 17:45:56 by eflaquet         ###   ########.fr       */
+/*   Updated: 2022/05/16 19:17:22 by eflaquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,32 +87,23 @@ int	ft_puthex(unsigned int o, char *base)
 
 	return (i);
 }
-int	ft_put_padress (void const *p, char const *base)
+int	ft_put_padress (void const *p, char const *base, int s)
 {
-	int x = 0;
 	unsigned long adr;
-
-	if(!p)
+	int x = 0;
+	if(!p && s != 1)
 		return(ft_putstr("(nil)"));
 	adr = (unsigned long) p;
-	int i = ft_intlen_base(adr);
-printf("i = %d", i );
-	char *rest = ft_calloc(sizeof(char), (i + 1));
-	int y = i;
-	while ((adr / 16) > 0)
-   {
-      rest[i] = base[(adr % 16)];
-      adr /= 16;
-      i--;
-   }
-   rest[i] = base[(adr % 16)];
-   	x += ft_putstr("0x");
-   while (i <= y)
-   {
-      x += ft_putchar (rest[i]);
-      i++;
-   }
-   free(rest);
+	if(!s)
+		x += ft_putstr("0x");
+	if(adr < 16)
+		x += ft_putchar(base[adr]);
+	else
+	{
+		x += ft_put_padress((const void *)((unsigned long)p / 16), base, 1);
+		x += ft_put_padress((const void *)((unsigned long)p % 16), base, 1);
+	}
+
    return (x);
 }
 int	check_format(char c, va_list l)
@@ -123,7 +114,7 @@ int	check_format(char c, va_list l)
 	else if(c == 's')
 		i += ft_putstr(va_arg(l, char *));
 	else if(c == 'p')
-		i += ft_put_padress(va_arg(l, void *),"0123456789abcdef");
+		i += ft_put_padress(va_arg(l, void *),"0123456789abcdef", 0);
 	else if(c == 'd')
 		i += ft_putnbr_len(va_arg(l, int));
 	else if(c == 'i')

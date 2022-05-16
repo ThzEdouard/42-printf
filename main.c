@@ -6,7 +6,7 @@
 /*   By: eflaquet <eflaquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 23:32:49 by eflaquet          #+#    #+#             */
-/*   Updated: 2022/05/16 17:24:29 by eflaquet         ###   ########.fr       */
+/*   Updated: 2022/05/16 19:15:10 by eflaquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char const *po = "helloss bg tesfk ";
 
 
    printf ("\n%p\n", (void *) po);
-   printf(" %x ", INT_MIN);
+   printf(" %p ", 16);
    printf("\n");
-   ft_printf(" %x ", INT_MIN);
+   ft_printf(" %p ", 16);
 }
