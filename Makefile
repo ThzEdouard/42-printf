@@ -1,5 +1,7 @@
 SRCS =  ft_printf.c \
-        ft_u_itoa.c
+		ft_u_itoa.c \
+		ft_put_util.c \
+		ft_put_util_tow.c
 
 BONUS =
 

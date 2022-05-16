@@ -60,10 +60,10 @@ CFLAGS = -Wall -Wextra -Werror -I.
 #		${CC}  ${CFLAGS} -c $< -o ${<:.c=.o}
 
 ${NAME}:	${OBJS}
-		ar rcs ${NAME} ${OBJS}
+		@ar rcs ${NAME} ${OBJS}
 
 bonus: ${BONUS_OBJS}
-		ar rcs ${NAME} ${BONUS_OBJS}
+		@ar rcs ${NAME} ${BONUS_OBJS}
 all:		${NAME}
 
 clean:
