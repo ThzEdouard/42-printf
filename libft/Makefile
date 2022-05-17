@@ -1,66 +1,71 @@
-SRCS =	\
-        ft_memset.c     \
-        ft_memmove.c    \
-        ft_memchr.c     \
-        ft_memcmp.c     \
-        ft_memcpy.c     \
-        ft_bzero.c      \
-        ft_atoi.c       \
-        ft_strlen.c     \
-        ft_strlcpy.c    \
-        ft_strchr.c     \
-        ft_strrchr.c    \
-        ft_strnstr.c    \
-        ft_strncmp.c    \
-        ft_atoi.c       \
-        ft_isalnum.c    \
-        ft_isdigit.c    \
-        ft_isalpha.c    \
-        ft_isascii.c    \
-        ft_isprint.c    \
-        ft_tolower.c    \
-        ft_toupper.c    \
-        ft_calloc.c     \
-        ft_strdup.c     \
-        ft_substr.c     \
-        ft_strjoin.c    \
-        ft_strtrim.c    \
-        ft_putchar_fd.c \
-        ft_putstr_fd.c  \
-        ft_putendl_fd.c \
-        ft_putnbr_fd.c  \
-        ft_itoa.c       \
-        ft_strmapi.c    \
-	ft_striteri.c \
+NAME		= libft.a
+SRC_DIR		= ./
+OBJ_DIR		= obj/
+CC			= gcc
+CFLAGS		= -Wall -Werror -Wextra -I.
+RM			= rm -f
+AR			= ar rcs
 
-OBJS = ${SRCS:.c=.o}
-BONUS_OBJS = ${BONUS:.c=.o}
+SRC_FILES =	\
+        ft_memset     \
+        ft_memmove    \
+        ft_memchr     \
+        ft_memcmp     \
+        ft_memcpy     \
+        ft_bzero      \
+        ft_atoi       \
+        ft_strlen     \
+        ft_strlcpy    \
+        ft_strchr     \
+        ft_strrchr    \
+        ft_strnstr    \
+        ft_strncmp    \
+        ft_atoi       \
+        ft_isalnum    \
+        ft_isdigit    \
+        ft_isalpha    \
+        ft_isascii    \
+        ft_isprint    \
+        ft_tolower    \
+        ft_toupper    \
+        ft_calloc     \
+        ft_strdup     \
+        ft_substr     \
+        ft_strjoin    \
+        ft_strtrim    \
+        ft_putchar_fd \
+        ft_putstr_fd  \
+        ft_putendl_fd \
+        ft_putnbr_fd  \
+        ft_itoa       \
+        ft_strmapi    \
+	ft_striteri \
 
-NAME = libft.a
+SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
+OBJ 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 
-CC = gcc
-RM = rm -f
-
-CFLAGS = -Wall -Wextra -Werror -I.
-
+OBJF		=	.cache_exists
 #.c.o:
 #		${CC}  ${CFLAGS} -c $< -o ${<:.c=.o}
 
-${NAME}:	${OBJS}
-		@ar rcs ${NAME} ${OBJS}
+all:		$(NAME)
 
-bonus: ${BONUS_OBJS}
-		@ar rcs ${NAME} ${BONUS_OBJS}
-all:		${NAME}
+$(NAME):	$(OBJ)
+		@$(AR) $(NAME) $(OBJ)
+
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c | $(OBJF)
+			@$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJF):
+			@mkdir -p $(OBJ_DIR)
 
 clean:
-		@${RM} ${OBJS}
-		@${RM} ${BONUS_OBJS}
+			@$(RM) -rf $(OBJ_DIR)
 
 fclean:		clean
-		@${RM} ${NAME}
+			@$(RM) -f $(NAME)
 
 re:		fclean all
 
 
-.PHONY:		all clean fclean re bonus
+.PHONY:		all clean fclean re

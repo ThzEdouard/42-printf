@@ -6,7 +6,7 @@
 /*   By: eflaquet <eflaquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:48:01 by eflaquet          #+#    #+#             */
-/*   Updated: 2022/05/17 01:21:40 by eflaquet         ###   ########.fr       */
+/*   Updated: 2022/05/17 16:54:57 by eflaquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int	check_format(char c, va_list l)
 		i += ft_puthex(va_arg(l, int), "0123456789ABCDEF");
 	else if (c == '%')
 		i += ft_putchar('%');
+	else
+		i += ft_printf("%%%c", c);
 	return (i);
 }
 
