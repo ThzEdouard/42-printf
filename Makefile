@@ -3,10 +3,7 @@ SRCS =  ft_printf.c \
 		ft_put_util.c \
 		ft_put_util_tow.c
 
-BONUS =
-
 OBJS = ${SRCS:.c=.o}
-BONUS_OBJS = ${BONUS:.c=.o}
 
 NAME = libftprintf.a
 
@@ -40,24 +37,23 @@ ${NAME}:	${OBJS}
 		@echo "────────────────▀▀▀──▀▀▀▀"
 		@echo "──────────────────▀▀▀▀"
 		@echo "───────────────────▀▀"
-		make -C libft
-		cp libft/libft.a $(NAME)
-		ar rcs ${NAME} ${OBJS}
+		@make -C libft
+		@cp libft/libft.a .
+		@mv libft.a $(NAME)
+		@ar rcs ${NAME} ${OBJS}
 
-bonus: ${BONUS_OBJS}
-		ar rcs ${NAME} ${BONUS_OBJS}
 all:		${NAME}
 
 clean:
-		make -C libft clean
-		${RM} ${OBJS}
-		${RM} ${BONUS_OBJS}
+		@make clean -C libft
+		@${RM} ${OBJS}
+		@${RM} ${BONUS_OBJS}
 
 fclean:		clean
-		make -C libft fclean
-		${RM} ${NAME}
+		@make fclean -C libft
+		@${RM} ${NAME}
 
 re:		fclean all
 
 
-.PHONY:		all clean fclean re bonus
+.PHONY:		all clean fclean re
