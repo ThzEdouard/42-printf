@@ -15,6 +15,7 @@ OBJ 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 OBJF		=	.cache_exists
 
 all:		$(NAME)
+			@echo "\033[0;32m [OK] \033[0m       \033[0;33m Compiling:\033[0m" $<
 
 $(NAME):	$(OBJ)
 			@echo "─────────▀▀▀▀▀▀──────────▀▀▀▀▀▀▀"
