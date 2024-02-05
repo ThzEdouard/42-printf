@@ -6,7 +6,7 @@
 /*   By: eflaquet <eflaquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 20:18:25 by eflaquet          #+#    #+#             */
-/*   Updated: 2022/05/17 16:55:07 by eflaquet         ###   ########.fr       */
+/*   Updated: 2022/05/19 03:42:27 by eflaquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	ft_putnbr_len(int d)
 	int		i;
 
 	s = ft_itoa(d);
+	if (!s)
+		return (0);
 	ft_putstr_fd(s, 1);
 	i = ft_strlen(s);
 	free(s);
@@ -53,6 +55,8 @@ int	ft_putnbr_u(unsigned int d)
 	int		i;
 
 	s = ft_u_itoa(d);
+	if (!s)
+		return (0);
 	ft_putstr_fd(s, 1);
 	i = ft_strlen(s);
 	free(s);

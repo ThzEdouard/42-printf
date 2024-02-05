@@ -6,26 +6,11 @@
 /*   By: eflaquet <eflaquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 00:47:46 by eflaquet          #+#    #+#             */
-/*   Updated: 2022/05/17 16:55:03 by eflaquet         ###   ########.fr       */
+/*   Updated: 2022/05/19 03:42:35 by eflaquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-int	ft_intlen_base(unsigned int nb)
-{
-	int	result;
-
-	result = 0;
-	if (nb == 0)
-		return (1);
-	while (nb != 0)
-	{
-		result++;
-		nb /= 16;
-	}
-	return (result);
-}
 
 int	ft_puthex(unsigned int o, char *base)
 {
